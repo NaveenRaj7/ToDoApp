@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">ToDoApp</string>
+    <string name="action_settings">Settings</string>
+    <string name="sign_in">Sign In</string>
+    <string name="signed_in_fmt">Signed in as: %s</string>
+    <string name="loading">Loading…</string>
+    <string name="signed_out">Signed out</string>
+    <string name="sign_out">Sign Out</string>
+    <string name="date_button_set">Set Date</string>
+    <string name="date_selected"></string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <!-- TODO(user): replace with your real server client ID -->
+    <!-- Server Client ID.  This should be a valid Web OAuth 2.0 Client ID obtained
+         from https://console.developers.google.com/ -->
+    <string name="server_client_id">219364573946-sqpda2n0ickbpk5ljt8t39a70sbe5npb.apps.googleusercontent.com</string>
+    <string name="title_activity_add_task">AddTask</string>
+
+</resources>
