@@ -93,8 +93,6 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
         }
     }
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -110,14 +108,6 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
         mFirebaseAuth = FirebaseAuth.getInstance();
         mFirebaseDatabaseReference = FirebaseDatabase.getInstance().getReference();
 
-        // [START initialize_database_ref]
-        //mDatabase = FirebaseDatabase.getInstance().getReference();
-        // [END initialize_database_ref]
-
-
-
-
-
         mFirebaseUser = mFirebaseAuth.getCurrentUser();
         if (mFirebaseUser == null) {
             // Not signed in, launch the Sign In activity
@@ -126,11 +116,6 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
             return;
         } else {
             mUsername = mFirebaseUser.getDisplayName();
-            /*if(mFirebaseDatabaseReference.orderByChild(NEW_USER_UID).equalTo(mFirebaseUser.getUid()).equals(mFirebaseUser.getUid())){
-                Log.d(TAG, "user exists");
-            }
-            else*/
-                //Log.d(TAG, "user does not exists");
                 mFirebaseDatabaseReference.child(NEW_USER_UID).child(mUsername).setValue(mFirebaseUser.getUid());
             if (mFirebaseUser.getPhotoUrl() != null) {
                 mPhotoUrl = mFirebaseUser.getPhotoUrl().toString();
@@ -138,23 +123,14 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
             }
         }
 
-        Log.d(TAG, "url"+ mFirebaseUser.getPhotoUrl());
-
-
-
-        mGoogleApiClient = new GoogleApiClient.Builder(this)
-                .enableAutoManage(this /* FragmentActivity */, this /* OnConnectionFailedListener */)
+        /*mGoogleApiClient = new GoogleApiClient.Builder(this)
+                .enableAutoManage(this *//* FragmentActivity *//*, this *//* OnConnectionFailedListener *//*)
                 .addApi(Auth.GOOGLE_SIGN_IN_API)
-                .build();
+                .build();*/
 
-
-
-        //mProgressBar = (ProgressBar) findViewById(R.id.progressBar);
         mMessageRecyclerView = (RecyclerView) findViewById(R.id.messageRecyclerView);
         mLinearLayoutManager = new LinearLayoutManager(this);
         mLinearLayoutManager.setStackFromEnd(true);
-
-
 
         mFirebaseAdapter = new FirebaseRecyclerAdapter<CommonUtilities, MessageViewHolder>(
                 CommonUtilities.class,
@@ -164,8 +140,6 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
 
             @Override
             protected void populateViewHolder(MessageViewHolder viewHolder, CommonUtilities friendlyMessage, int position) {
-                //mProgressBar.setVisibility(ProgressBar.INVISIBLE);
-
                 if(friendlyMessage.getName().equals(mUsername)) {
                     //viewHolder.lt.setBackgroundColor(Color.rgb(143, 188, 143));
                     viewHolder.lt.setBackgroundColor(Color.rgb(128,128,128));
@@ -209,18 +183,8 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
 
 
                 }
-                /*if (friendlyMessage.getPhotoUrl() == null) {
-                    viewHolder.messengerImageView.setImageDrawable(ContextCompat.getDrawable(MainActivity.this,
-                            R.drawable.ic_account_circle_black_36dp));
-                } else {
-                    Glide.with(MainActivity.this)
-                            .load(friendlyMessage.getPhotoUrl())
-                            .into(viewHolder.messengerImageView);
-                }*/
             }
         };
-
-
 
         mFirebaseAdapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
             @Override
@@ -240,27 +204,13 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
         mMessageRecyclerView.setLayoutManager(mLinearLayoutManager);
         mMessageRecyclerView.setAdapter(mFirebaseAdapter);
 
-
-
-
-
-
         mSendButton = (Button) findViewById(R.id.sendButton);
         mSendButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 startActivity(new Intent(MainActivity.this, AddTask.class));
-
-
-
-
-                /*CommonUtilities friendlyMessage = new CommonUtilities(mMessageEditText.getText().toString(), mUsername);
-                mFirebaseDatabaseReference.child(MESSAGES_CHILD).push().setValue(friendlyMessage);
-                mMessageEditText.setText("");*/
             }
         });
-
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -300,22 +250,12 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
         }
     }
 
-
-
-
-
-
-
-
-
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
-
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -333,7 +273,6 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
         }
     }
 
-
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
@@ -344,34 +283,11 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
             // Handle the camera action
         } else if (id == R.id.create_group) {
 
-        } /*else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_manage) {
-
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
-
-        }*/
-
+        }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     @Override
     public void onConnectionFailed(ConnectionResult connectionResult) {
